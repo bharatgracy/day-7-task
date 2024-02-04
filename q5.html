@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        fetch('https://restcountries.com/v3.1/all')
+  .then(response => response.json())
+  .then(data => {
+    const countryUsingUSD = data.find(country => {
+      const currencies = country.currencies;
+      return currencies && typeof currencies === 'object' && Object.values(currencies).includes('USD');
+    });
+    
+    if (countryUsingUSD) {
+      console.log("Country using US dollars as currency:", countryUsingUSD.name.common);
+    } else {
+      console.log("No country found using US dollars as currency.");
+    }
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+    </script>
+</body>
+</html>
